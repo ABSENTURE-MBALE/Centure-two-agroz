@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centure Two Agro Dealer | Grow with confidence</title>
+  <meta name="description" content="Quality farm inputs, tools and practical guidance for every growing season." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root { --ink:#1e2d24; --muted:#6d776e; --cream:#f6f2e8; --paper:#fffdf8; --green:#173f2a; --leaf:#5d873a; --yellow:#e8b63f; --line:#deded2; --orange:#c76338; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--cream); font-family:'DM Sans',sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    button, input { font:inherit; }
+    .topbar { background:var(--yellow); color:var(--green); padding:9px 5vw; display:flex; justify-content:center; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    nav { height:78px; background:var(--paper); display:flex; align-items:center; justify-content:space-between; padding:0 5vw; border-bottom:1px solid var(--line); position:relative; z-index:2; }
+    .brand { display:flex; align-items:center; gap:11px; font-weight:700; font-size:15px; letter-spacing:.02em; }
+    .brand-mark { width:39px; height:39px; border-radius:50%; background:var(--green); color:var(--yellow); display:grid; place-items:center; }
+    .brand-mark svg { width:21px; }
+    .navlinks { display:flex; gap:30px; color:#536157; font-size:13px; font-weight:600; }
+    .navlinks a:hover { color:var(--orange); }
+    .nav-actions { display:flex; gap:10px; align-items:center; }
+    .icon-btn { border:1px solid var(--line); background:transparent; border-radius:50%; width:39px; height:39px; display:grid; place-items:center; color:var(--green); cursor:pointer; position:relative; }
+    .icon-btn:hover { background:#f0ede3; }
+    .cart-count { position:absolute; top:-4px; right:-2px; min-width:17px; height:17px; border-radius:9px; background:var(--orange); color:white; font-size:10px; display:grid; place-items:center; }
+    .hero { min-height:565px; padding:67px 5vw 76px; display:grid; grid-template-columns:1.03fr .97fr; gap:6vw; align-items:center; background:var(--paper); overflow:hidden; }
+    .eyebrow { color:var(--orange); font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; margin:0 0 20px; }
+    h1, h2 { font-family:'Fraunces',serif; font-weight:700; letter-spacing:-.035em; margin:0; }
+    h1 { font-size:clamp(48px,6vw,83px); line-height:.98; max-width:650px; }
+    h1 em { color:var(--leaf); font-style:normal; }
+    .hero-copy { max-width:510px; margin:24px 0 30px; color:var(--muted); line-height:1.7; font-size:16px; }
+    .primary { border:0; background:var(--orange); color:white; padding:14px 20px; border-radius:4px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:9px; transition:transform .2s, background .2s; }
+    .primary:hover { transform:translateY(-2px); background:#a84f2c; }
+    .secondary { color:var(--green); margin-left:20px; font-weight:700; font-size:13px; display:inline-flex; gap:7px; align-items:center; }
+    .hero-visual { min-height:415px; position:relative; }
+    .hero-photo { width:82%; height:380px; object-fit:cover; object-position:center; border-radius:155px 155px 5px 5px; display:block; margin-left:auto; filter:saturate(.83); }
+    .stamp { position:absolute; left:0; bottom:17px; width:148px; height:148px; background:var(--yellow); border-radius:50%; display:grid; place-items:center; text-align:center; padding:28px; font-family:'Fraunces',serif; font-size:17px; line-height:1.08; transform:rotate(-10deg); }
+    .stamp span { display:block; font-family:'DM Sans'; font-size:10px; text-transform:uppercase; letter-spacing:.1em; margin-top:7px; }
+    .season-card { position:absolute; right:-4px; top:29px; background:var(--green); color:white; padding:17px 19px; width:156px; box-shadow:0 12px 28px #1e2d2430; }
+    .season-card small { color:#cad8bf; font-size:10px; text-transform:uppercase; letter-spacing:.1em; }
+    .season-card strong { display:block; font-family:'Fraunces'; font-size:22px; margin-top:5px; }
+    .feature-strip { background:var(--green); color:white; display:grid; grid-template-columns:repeat(3,1fr); padding:22px 5vw; gap:35px; }
+    .feature { display:flex; align-items:center; gap:14px; }
+    .feature svg { color:var(--yellow); width:22px; }
+    .feature strong { font-size:13px; display:block; }
+    .feature span { color:#b8c7b7; font-size:12px; display:block; margin-top:3px; }
+    .shop { padding:82px 5vw; max-width:1400px; margin:auto; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; margin-bottom:32px; }
+    h2 { font-size:42px; line-height:1.05; }
+    .section-head p { color:var(--muted); font-size:13px; margin:9px 0 0; }
+    .categories { display:flex; gap:8px; flex-wrap:wrap; }
+    .category { background:transparent; border:1px solid var(--line); color:var(--muted); padding:10px 14px; border-radius:3px; cursor:pointer; font-size:12px; font-weight:700; }
+    .category.active, .category:hover { background:var(--green); color:white; border-color:var(--green); }
+    .products { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .product { background:var(--paper); border:1px solid var(--line); position:relative; transition:transform .2s, box-shadow .2s; }
+    .product:hover { transform:translateY(-5px); box-shadow:0 14px 28px #1e2d2412; }
+    .product.hidden { display:none; }
+    .product-image { height:220px; width:100%; object-fit:cover; display:block; }
+    .product-body { padding:17px; }
+    .product-tag { color:var(--orange); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.11em; }
+    .product h3 { font-family:'Fraunces'; font-size:20px; margin:7px 0 13px; }
+    .product-bottom { display:flex; align-items:center; justify-content:space-between; }
+    .price { font-size:15px; font-weight:700; }
+    .add { background:var(--yellow); border:0; width:33px; height:33px; border-radius:50%; display:grid; place-items:center; cursor:pointer; color:var(--green); }
+    .add:hover { background:var(--orange); color:white; }
+    .story { background:#e4e9d9; display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:7vw; padding:72px 10vw; }
+    .story img { width:100%; height:350px; object-fit:cover; border-radius:5px; }
+    .story p { color:var(--muted); line-height:1.75; font-size:15px; max-width:490px; }
+    .quote { border-left:3px solid var(--orange); padding-left:15px; font-family:'Fraunces'; color:var(--green); font-size:19px; margin:25px 0; max-width:450px; }
+    footer { background:var(--green); color:white; padding:40px 5vw 30px; display:flex; justify-content:space-between; align-items:end; }
+    footer p { color:#b8c7b7; font-size:12px; margin:12px 0 0; }
+    .footer-links { display:flex; gap:24px; font-size:12px; color:#d6e0d2; }
+    .search-box { display:none; position:absolute; top:78px; left:0; right:0; background:white; padding:20px 5vw; border-bottom:1px solid var(--line); z-index:10; max-height:80vh; overflow-y:auto; }
+    .search-box.active { display:block; }
+    .search-box input { width:100%; max-width:500px; padding:10px 15px; border:1px solid var(--line); border-radius:4px; font-size:14px; }
+    .search-box input:focus { outline:none; border-color:var(--orange); }
+    .search-results { margin-top:20px; }
+    .search-products { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:16px; }
+    .search-product-card { background:var(--paper); border:1px solid var(--line); border-radius:4px; overflow:hidden; cursor:pointer; transition:transform .2s, box-shadow .2s; }
+    .search-product-card:hover { transform:translateY(-3px); box-shadow:0 8px 16px #1e2d2412; }
+    .search-product-img { width:100%; height:140px; object-fit:cover; }
+    .search-product-info { padding:12px; }
+    .search-product-tag { color:var(--orange); font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; }
+    .search-product-name { font-family:'Fraunces'; font-size:14px; margin:5px 0; color:var(--ink); }
+    .search-product-price { font-size:13px; font-weight:700; color:var(--green); }
+    .search-no-results { color:var(--muted); font-size:14px; padding:20px; text-align:center; }
+    @media (max-width:800px) {
+      nav { height:68px; } .navlinks { display:none; } .hero { grid-template-columns:1fr; padding-top:48px; gap:35px; } .hero-visual { min-height:345px; } .hero-photo { width:88%; height:320px; } .stamp { width:120px; height:120px; font-size:15px; padding:22px; } .season-card { right:0; }
+      .feature-strip { grid-template-columns:1fr; gap:17px; padding:22px 8vw; } .section-head { display:block; } .categories { margin-top:23px; } .products { grid-template-columns:repeat(2,1fr); } .product-image { height:170px; } .story { grid-template-columns:1fr; padding:55px 8vw; gap:30px; } .story img { height:260px; } footer { display:block; } .footer-links { margin-top:24px; flex-wrap:wrap; }
+    }
+    @media (max-width:450px) { .products { grid-template-columns:1fr; } .product-image { height:220px; } h2 { font-size:36px; } .secondary { margin-left:12px; } }
+  </style>
+</head>
+<body>
+  <div class="topbar">Free delivery on farm orders over 400k · Call us on 0984302152</div>
+  <nav>
+    <a class="brand" href="#top"><span class="brand-mark"><i data-lucide="sprout"></i></span><span>CENTURE TWO<br />AGRO DEALER</span></a>
+    <div class="navlinks"><a href="#shop">Shop inputs</a><a href="#why-us">Why Centure Two</a><a href="#contact">Contact</a></div>
+    <div class="nav-actions"><button class="icon-btn search-toggle" aria-label="Search"><i data-lucide="search"></i></button><button class="icon-btn" aria-label="Shopping cart"><i data-lucide="shopping-basket"></i><span class="cart-count">0</span></button></div>
+  </nav>
+  <div class="search-box" id="searchBox">
+    <input type="text" id="searchInput" placeholder="Search products... (Seedco, Bayer, GreenGuard, Trowel)" />
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <main id="top">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Good inputs. Better harvests.</p>
+        <h1>Grow with <em>confidence.</em></h1>
+        <p class="hero-copy">Dependable seeds, crop care and farm tools for growers who take every season seriously. Practical advice is always part of the order.</p>
+        <a class="primary" href="#shop">Shop the season <i data-lucide="arrow-right"></i></a><a class="secondary" href="#why-us">Our promise <i data-lucide="arrow-down-right"></i></a>
+      </div>
+      <div class="hero-visual"><img class="hero-photo" src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1000&q=85" alt="Healthy green crop rows in a field" /><div class="stamp">From soil<br />to success<span>YOUR TRUSTED SOURCE</span></div><div class="season-card"><small>Now in stock</small><strong>Long rains<br />2026</strong></div></div>
+    </section>
+    <section class="feature-strip" id="why-us"><div class="feature"><i data-lucide="badge-check"></i><div><strong>Genuine products</strong><span>Inputs you can trust, every time.</span></div></div><div class="feature"><i data-lucide="truck"></i><div><strong>We deliver to you</strong><span>From our store to your farm gate.</span></div></div><div class="feature"><i data-lucide="messages-square"></i><div><strong>Advice that works</strong><span>Real answers from real farm people.</span></div></div></section>
+    <section class="shop" id="shop"><div class="section-head"><div><p class="eyebrow">The essentials</p><h2>Ready for the<br />next season?</h2><p>Smallholder or large-scale, start with the right foundation.</p></div><div class="categories"><button class="category active" data-filter="all">All products</button><button class="category" data-filter="seeds">Seeds</button><button class="category" data-filter="care">Crop care</button><button class="category" data-filter="tools">Tools</button></div></div>
+      <div class="products">
+        <article class="product" data-category="seeds"><img class="product-image" src="https://seedcogroup.com/zm/fieldcrops/wp-content/uploads/2021/09/719.jpg" alt="SEEDCO SEEDS" /><div class="product-body"><span class="product-tag">Seeds · 2kg pack</span><h3>SEEDCO SEEDS</h3><div class="product-bottom"><span class="price">KSh 580</span><button class="add" aria-label="Add SEEDCO SEEDS to basket"><i data-lucide="plus"></i></button></div></div></article>
+        <article class="product" data-category="seeds"><img class="product-image" src="https://seedcogroup.com/zm/fieldcrops/wp-content/uploads/2021/09/719.jpg" alt="SEEDCO SEEDS" /><div class="product-body"><span class="product-tag">Seeds · 5kg pack</span><h3>SEEDCO SEEDS</h3><div class="product-bottom"><span class="price">KSh 1,200</span><button class="add" aria-label="Add SEEDCO SEEDS to basket"><i data-lucide="plus"></i></button></div></div></article>
+        <article class="product" data-category="seeds"><img class="product-image" src="https://imaginecare.co.ke/wp-content/uploads/2023/09/DK-8031-Hybrid-Maize-Seeds-2kg.png" alt="BAYER SEEDS" /><div class="product-body"><span class="product-tag">Seeds · 2kg pack</span><h3>BAYER SEEDS</h3><div class="product-bottom"><span class="price">KSh 750</span><button class="add" aria-label="Add BAYER SEEDS to basket"><i data-lucide="plus"></i></button></div></div></article>
+        <article class="product" data-category="seeds"><img class="product-image" src="https://imaginecare.co.ke/wp-content/uploads/2023/09/DK-8031-Hybrid-Maize-Seeds-2kg.png" alt="BAYER SEEDS" /><div class="product-body"><span class="product-tag">Seeds · 5kg pack</span><h3>BAYER SEEDS</h3><div class="product-bottom"><span class="price">KSh 1,500</span><button class="add" aria-label="Add BAYER SEEDS to basket"><i data-lucide="plus"></i></button></div></div></article>
+        <article class="product" data-category="care"><img class="product-image" src="https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&w=700&q=80" alt="Farmer tending crops" /><div class="product-body"><span class="product-tag">Crop care · 1L</span><h3>GreenGuard Foliar</h3><div class="product-bottom"><span class="price">KSh 1,250</span><button class="add" aria-label="Add GreenGuard Foliar to basket"><i data-lucide="plus"></i></button></div></div></article>
+        <article class="product" data-category="tools"><img class="product-image" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=700&q=80" alt="Hand trowel and gardening tools" /><div class="product-body"><span class="product-tag">Tools · Heavy duty</span><h3>Garden Hand Trowel</h3><div class="product-bottom"><span class="price">KSh 420</span><button class="add" aria-label="Add Garden Hand Trowel to basket"><i data-lucide="plus"></i></button></div></div></article>
+      </div>
+    </section>
+    <section class="story" id="contact"><img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1000&q=85" alt="Hands caring for a young plant" /><div><p class="eyebrow">More than a shop</p><h2>Good farming starts with a good conversation.</h2><p>Tell us what you are planting, where you are planting it and what your soil is saying. We will help you find the right input for your budget and your ambition.</p><p class="quote">“We want every farmer to leave with more clarity than they came in with.”</p><a class="primary" href="tel:+254712440221">Talk to our team <i data-lucide="phone"></i></a></div></section>
+  </main>
+    <footer><div><a class="brand" href="#top"><span class="brand-mark"><i data-lucide="sprout"></i></span><span>CENTURE TWO<br />AGRO DEALER</span></a><p>Quality inputs for a stronger harvest.</p></div><div class="footer-links"><a href="#shop">Shop</a><a href="tel:0984302152">0984302152</a><a href="mailto:mbaleabsenture@gmail.com">mbaleabsenture@gmail.com</a></div></footer>
+  <div class="toast" role="status">Added to your basket</div>
+  <script>
+    lucide.createIcons();
+    const buttons = document.querySelectorAll('.category');
+    const products = document.querySelectorAll('.product');
+    
+    // Category filtering
+    buttons.forEach(button => button.addEventListener('click', () => {
+      buttons.forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+      const filter = button.dataset.filter;
+      products.forEach(product => product.classList.toggle('hidden', filter !== 'all' && product.dataset.category !== filter));
+    }));
+    
+    // Search functionality
+    const searchToggle = document.querySelector('.search-toggle');
+    const searchBox = document.getElementById('searchBox');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    
+    searchToggle.addEventListener('click', () => {
+      searchBox.classList.toggle('active');
+      if (searchBox.classList.contains('active')) {
+        searchInput.focus();
+      }
+    });
+    
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase().trim();
+      
+      if (query === '') {
+        searchResults.innerHTML = '';
+        products.forEach(product => product.classList.remove('hidden'));
+        return;
+      }
+      
+      const matchedProducts = [];
+      products.forEach(product => {
+        const title = product.querySelector('h3').textContent.toLowerCase();
+        const tag = product.querySelector('.product-tag').textContent.toLowerCase();
+        const isMatch = title.includes(query) || tag.includes(query);
+        
+        if (isMatch) {
+          matchedProducts.push(product);
+        }
+      });
+      
+      if (matchedProducts.length === 0) {
+        searchResults.innerHTML = '<div class="search-no-results">No products found for "' + query + '"</div>';
+      } else {
+        let html = '<div class="search-products">';
+        matchedProducts.forEach(product => {
+          const title = product.querySelector('h3').textContent;
+          const tag = product.querySelector('.product-tag').textContent;
+          const price = product.querySelector('.price').textContent;
+          const img = product.querySelector('.product-image').src;
+          
+          html += `<div class="search-product-card" onclick="this.scrollIntoView({behavior:'smooth'}); document.getElementById('searchBox').classList.remove('active');">
+            <img class="search-product-img" src="${img}" alt="${title}" />
+            <div class="search-product-info">
+              <div class="search-product-tag">${tag}</div>
+              <div class="search-product-name">${title}</div>
+              <div class="search-product-price">${price}</div>
+            </div>
+          </div>`;
+        });
+        html += '</div>';
+        searchResults.innerHTML = html;
+      }
+    });
+    
+    // Cart functionality
+    let count = 0;
+    const toast = document.querySelector('.toast');
+    document.querySelectorAll('.add').forEach(button => button.addEventListener('click', () => {
+      count += 1;
+      document.querySelector('.cart-count').textContent = count;
+      toast.classList.add('show');
+      window.clearTimeout(window.toastTimer);
+      window.toastTimer = window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }));
+  </script>
+</body>
+</html>
+<!--  -->
