@@ -235,7 +235,14 @@
       requestButton.disabled = selected.length === 0;
     };
 
-    productSelections.forEach(input => input.addEventListener('change', updateRequestSelection));
+    productSelections.forEach(input => input.addEventListener('change', () => {
+      updateRequestSelection();
+      if (input.checked) {
+        const requestConfirmation = document.getElementById('requestConfirmation');
+        requestConfirmation.classList.remove('show');
+        window.clearTimeout(window.requestConfirmationTimer);
+      }
+    }));
 
     requestButton.addEventListener('click', () => {
       const selected = [...productSelections].filter(input => input.checked);
@@ -245,10 +252,12 @@
       const message = encodeURIComponent('Hello Centure Two Agro Dealer, I would like to request the following products:\n' + requestItems.join('\n'));
       const whatsappUrl = 'https://wa.me/265984302152?text=' + message;
       window.open(whatsappUrl, '_blank', 'noopener');
+      selected.forEach(input => { input.checked = false; });
+      updateRequestSelection();
       const requestConfirmation = document.getElementById('requestConfirmation');
       requestConfirmation.classList.add('show');
       window.clearTimeout(window.requestConfirmationTimer);
-      window.requestConfirmationTimer = window.setTimeout(() => requestConfirmation.classList.remove('show'), 3500);
+      window.requestConfirmationTimer = window.setTimeout(() => requestConfirmation.classList.remove('show'), 60000);
     });
     
     // Cart functionality
