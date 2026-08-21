@@ -48,7 +48,7 @@
     .feature svg { color:var(--yellow); width:22px; }
     .feature strong { font-size:13px; display:block; }
     .feature span { color:#b8c7b7; font-size:12px; display:block; margin-top:3px; }
-    .shop { padding:82px 5vw; max-width:1400px; margin:auto; }
+    .shop { padding:82px 5vw 150px; max-width:1400px; margin:auto; }
     .section-head { display:flex; justify-content:space-between; align-items:end; margin-bottom:32px; }
     h2 { font-size:42px; line-height:1.05; }
     .section-head p { color:var(--muted); font-size:13px; margin:9px 0 0; }
@@ -59,7 +59,8 @@
     .product { background:var(--paper); border:1px solid var(--line); position:relative; transition:transform .2s, box-shadow .2s; }
     .product:hover { transform:translateY(-5px); box-shadow:0 14px 28px #1e2d2412; }
     .product.hidden { display:none; }
-    .product-image { height:220px; width:100%; object-fit:cover; display:block; }
+    .product-image { height:220px; width:100%; object-fit:cover; display:block; cursor:pointer; transition:opacity .2s; }
+    .product-image:hover { opacity:.86; }
     .product-body { padding:17px; }
     .product-tag { color:var(--orange); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.11em; }
     .product h3 { font-family:'Fraunces'; font-size:20px; margin:7px 0 13px; }
@@ -70,12 +71,16 @@
     .product-select:focus { outline:2px solid var(--yellow); outline-offset:1px; }
     .add { background:var(--yellow); border:0; width:33px; height:33px; border-radius:50%; display:grid; place-items:center; cursor:pointer; color:var(--green); }
     .add:hover { background:var(--orange); color:white; }
-    .request-bar { display:flex; align-items:center; justify-content:space-between; gap:18px; background:var(--green); color:white; padding:14px 18px; border-radius:8px; margin:0 0 22px; position:sticky; bottom:16px; z-index:5; box-shadow:0 10px 24px rgba(23,63,42,.16); }
+    .request-bar { display:flex; align-items:center; justify-content:space-between; gap:18px; background:var(--green); color:white; padding:14px 18px; border-radius:8px; margin:0 5vw 22px; position:fixed; left:0; right:0; bottom:16px; z-index:5; box-shadow:0 10px 24px rgba(23,63,42,.16); }
     .request-summary { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
     .request-bar span { font-size:13px; font-weight:700; }
     .request-total { color:var(--yellow); }
     .request-button { display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; min-width:200px; }
     .request-button:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+    .selection-guide { background:#e4e9d9; border-left:3px solid var(--orange); padding:16px 18px; margin:0 0 22px; }
+    .selection-guide strong { display:block; color:var(--green); font-size:13px; margin-bottom:9px; }
+    .selection-guide ol { display:flex; gap:22px; margin:0; padding-left:19px; color:var(--muted); font-size:12px; line-height:1.5; }
+    .selection-guide li { flex:1; padding-left:2px; }
     .story { background:#e4e9d9; display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:7vw; padding:72px 10vw; }
     .story img { width:100%; height:350px; object-fit:cover; border-radius:5px; }
     .story p { color:var(--muted); line-height:1.75; font-size:15px; max-width:490px; }
@@ -101,6 +106,7 @@
     .request-confirmation.show { opacity:1; transform:translate(-50%,0); }
     @media (max-width:800px) {
       nav { height:68px; } .navlinks { display:none; } .hero { grid-template-columns:1fr; padding-top:48px; gap:35px; } .hero-visual { min-height:345px; } .hero-photo { width:88%; height:320px; } .stamp { width:120px; height:120px; font-size:15px; padding:22px; } .season-card { right:0; }
+      .selection-guide ol { display:block; } .selection-guide li + li { margin-top:7px; }
       .feature-strip { grid-template-columns:1fr; gap:17px; padding:22px 8vw; } .section-head { display:block; } .categories { margin-top:23px; } .products { grid-template-columns:repeat(2,1fr); } .product-image { height:170px; } .request-bar { flex-direction:column; align-items:flex-start; } .request-button { width:100%; } .story { grid-template-columns:1fr; padding:55px 8vw; gap:30px; } .story img { height:260px; } footer { display:block; } .footer-links { margin-top:24px; flex-wrap:wrap; }
     }
     @media (max-width:450px) { .products { grid-template-columns:1fr; } .product-image { height:220px; } h2 { font-size:36px; } .secondary { margin-left:12px; } }
@@ -130,6 +136,7 @@
     <section class="feature-strip" id="why-us"><div class="feature"><i data-lucide="badge-check"></i><div><strong>Genuine products</strong><span>Inputs you can trust, every time.</span></div></div><div class="feature"><i data-lucide="truck"></i><div><strong>We deliver to you</strong><span>From our store to your farm gate.</span></div></div><div class="feature"><i data-lucide="messages-square"></i><div><strong>Advice that works</strong><span>Real answers from real farm people.</span></div></div></section>
     <section class="shop" id="shop"><div class="section-head"><div><p class="eyebrow">The essentials</p><h2>Ready for the<br />next season?</h2><p>Smallholder or large-scale, start with the right foundation.</p></div><div class="categories"><button class="category active" data-filter="all">All products</button><button class="category" data-filter="seeds">Seeds</button><button class="category" data-filter="vegetable-seeds">Vegetable seeds</button><button class="category" data-filter="care">Crop care</button><button class="category" data-filter="tools">Tools</button></div></div>
       <div class="request-bar"><div class="request-summary"><span id="requestSelectionCount">0 selected</span><span class="request-total" id="requestTotal">Total: MWK 0</span></div><button class="primary request-button" id="requestSelectedButton" type="button" disabled>Request via WhatsApp</button></div>
+      <div class="selection-guide" aria-label="Product selection instructions"><strong>How to select products</strong><ol><li>Tap a product image to select it.</li><li>Use the arrows in the quantity box, or type a number with your keyboard, to choose how many you want.</li><li>Send your request on WhatsApp. A congratulations message will pop up after it is sent.</li></ol></div>
       <div class="products">
         <article class="product" data-category="seeds"><img class="product-image" src="https://seedcogroup.com/zm/fieldcrops/wp-content/uploads/2021/09/719.jpg" alt="SEEDCO SEEDS" /><div class="product-body"><span class="product-tag">Seeds · 2kg pack</span><h3>SEEDCO SEEDS</h3><div class="product-bottom"><span class="price">MWK 580</span><div class="product-actions"><input class="product-select" type="checkbox" aria-label="Select SEEDCO SEEDS" data-name="SEEDCO SEEDS" data-tag="Seeds · 2kg pack" data-price="MWK 580" /><button class="add" aria-label="Add SEEDCO SEEDS to basket"><i data-lucide="plus"></i></button></div></div></div></article>
         <article class="product" data-category="seeds"><img class="product-image" src="https://seedcogroup.com/zm/fieldcrops/wp-content/uploads/2021/09/719.jpg" alt="SEEDCO SEEDS" /><div class="product-body"><span class="product-tag">Seeds · 5kg pack</span><h3>SEEDCO SEEDS</h3><div class="product-bottom"><span class="price">MWK 1,200</span><div class="product-actions"><input class="product-select" type="checkbox" aria-label="Select SEEDCO SEEDS" data-name="SEEDCO SEEDS" data-tag="Seeds · 5kg pack" data-price="MWK 1,200" /><button class="add" aria-label="Add SEEDCO SEEDS to basket"><i data-lucide="plus"></i></button></div></div></div></article>
@@ -237,6 +244,12 @@
       input.value = '0';
       input.title = 'Enter quantity';
     });
+
+    document.querySelectorAll('.product .product-image').forEach(image => image.addEventListener('click', () => {
+      const quantityInput = image.closest('.product').querySelector('.product-select');
+      quantityInput.value = String(Number(quantityInput.value) + 1);
+      quantityInput.dispatchEvent(new Event('input', { bubbles:true }));
+    }));
 
     const updateRequestSelection = () => {
       const selected = [...productSelections].filter(input => Number(input.value) > 0);
