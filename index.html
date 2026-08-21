@@ -66,9 +66,8 @@
     .product-bottom { display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .price { font-size:15px; font-weight:700; }
     .product-actions { display:flex; align-items:center; gap:8px; }
-    .product-select { appearance:none; width:18px; height:18px; border-radius:4px; border:1px solid var(--line); background:white; position:relative; cursor:pointer; }
-    .product-select:checked { background:var(--green); border-color:var(--green); }
-    .product-select:checked::after { content:""; position:absolute; inset:3px; border-right:2px solid white; border-bottom:2px solid white; transform:rotate(45deg) scale(1.1); }
+    .product-select { width:56px; height:33px; padding:5px 7px; border:1px solid var(--line); border-radius:4px; background:white; color:var(--green); text-align:center; font-weight:700; cursor:pointer; }
+    .product-select:focus { outline:2px solid var(--yellow); outline-offset:1px; }
     .add { background:var(--yellow); border:0; width:33px; height:33px; border-radius:50%; display:grid; place-items:center; cursor:pointer; color:var(--green); }
     .add:hover { background:var(--orange); color:white; }
     .request-bar { display:flex; align-items:center; justify-content:space-between; gap:18px; background:var(--green); color:white; padding:14px 18px; border-radius:8px; margin:0 0 22px; position:sticky; bottom:16px; z-index:5; box-shadow:0 10px 24px rgba(23,63,42,.16); }
@@ -232,17 +231,25 @@
     const requestTotal = document.getElementById('requestTotal');
     const productSelections = document.querySelectorAll('.product-select');
 
+    productSelections.forEach(input => {
+      input.type = 'number';
+      input.min = '0';
+      input.value = '0';
+      input.title = 'Enter quantity';
+    });
+
     const updateRequestSelection = () => {
-      const selected = [...productSelections].filter(input => input.checked);
-      const total = selected.reduce((sum, input) => sum + Number(input.dataset.price.replace(/[^0-9]/g, '')), 0);
-      requestSelectionCount.textContent = selected.length === 1 ? '1 selected' : selected.length + ' selected';
+      const selected = [...productSelections].filter(input => Number(input.value) > 0);
+      const selectedUnits = selected.reduce((sum, input) => sum + Number(input.value), 0);
+      const total = selected.reduce((sum, input) => sum + Number(input.value) * Number(input.dataset.price.replace(/[^0-9]/g, '')), 0);
+      requestSelectionCount.textContent = selectedUnits === 1 ? '1 item selected' : selectedUnits + ' items selected';
       requestTotal.textContent = 'Total: MWK ' + total.toLocaleString();
       requestButton.disabled = selected.length === 0;
     };
 
-    productSelections.forEach(input => input.addEventListener('change', () => {
+    productSelections.forEach(input => input.addEventListener('input', () => {
       updateRequestSelection();
-      if (input.checked) {
+      if (Number(input.value) > 0) {
         const requestConfirmation = document.getElementById('requestConfirmation');
         requestConfirmation.classList.remove('show');
         window.clearTimeout(window.requestConfirmationTimer);
@@ -250,14 +257,14 @@
     }));
 
     requestButton.addEventListener('click', () => {
-      const selected = [...productSelections].filter(input => input.checked);
+      const selected = [...productSelections].filter(input => Number(input.value) > 0);
       if (!selected.length) return;
 
-      const requestItems = selected.map(input => `- ${input.dataset.name} (${input.dataset.tag}) - ${input.dataset.price}`);
+      const requestItems = selected.map(input => `- ${input.dataset.name} x ${input.value} (${input.dataset.tag}) - ${input.dataset.price} each`);
       const message = encodeURIComponent('Hello Centure Two Agro Dealer, I would like to request the following products:\n' + requestItems.join('\n'));
       const whatsappUrl = 'https://wa.me/265984302152?text=' + message;
       window.open(whatsappUrl, '_blank', 'noopener');
-      selected.forEach(input => { input.checked = false; });
+      selected.forEach(input => { input.value = '0'; });
       updateRequestSelection();
       const requestConfirmation = document.getElementById('requestConfirmation');
       requestConfirmation.classList.add('show');
