@@ -71,10 +71,13 @@
     .product-select:focus { outline:2px solid var(--yellow); outline-offset:1px; }
     .add { background:var(--yellow); border:0; width:33px; height:33px; border-radius:50%; display:grid; place-items:center; cursor:pointer; color:var(--green); }
     .add:hover { background:var(--orange); color:white; }
-    .request-bar { display:flex; align-items:center; justify-content:space-between; gap:18px; background:var(--green); color:white; padding:14px 18px; border-radius:8px; margin:0 5vw 22px; position:fixed; left:0; right:0; bottom:16px; z-index:5; box-shadow:0 10px 24px rgba(23,63,42,.16); }
+    .request-bar { display:flex; flex-direction:column; align-items:stretch; gap:10px; background:var(--green); color:white; padding:14px 18px; border-radius:8px; margin:0 5vw 22px; position:fixed; left:0; right:0; bottom:16px; z-index:5; box-shadow:0 10px 24px rgba(23,63,42,.16); }
     .request-summary { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
     .request-bar span { font-size:13px; font-weight:700; }
     .request-total { color:var(--yellow); }
+    .selected-items { display:flex; flex-wrap:wrap; gap:6px 16px; margin:0; padding:0; list-style:none; color:#d6e0d2; font-size:12px; }
+    .selected-items:empty { display:none; }
+    .selected-items li::before { content:"· "; color:var(--yellow); }
     .request-button { display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; min-width:200px; }
     .request-button:disabled { opacity:.5; cursor:not-allowed; transform:none; }
     .selection-guide { background:#e4e9d9; border-left:3px solid var(--orange); padding:16px 18px; margin:0 0 22px; }
@@ -135,7 +138,7 @@
     </section>
     <section class="feature-strip" id="why-us"><div class="feature"><i data-lucide="badge-check"></i><div><strong>Genuine products</strong><span>Inputs you can trust, every time.</span></div></div><div class="feature"><i data-lucide="truck"></i><div><strong>We deliver to you</strong><span>From our store to your farm gate.</span></div></div><div class="feature"><i data-lucide="messages-square"></i><div><strong>Advice that works</strong><span>Real answers from real farm people.</span></div></div></section>
     <section class="shop" id="shop"><div class="section-head"><div><p class="eyebrow">The essentials</p><h2>Ready for the<br />next season?</h2><p>Smallholder or large-scale, start with the right foundation.</p></div><div class="categories"><button class="category active" data-filter="all">All products</button><button class="category" data-filter="seeds">Seeds</button><button class="category" data-filter="vegetable-seeds">Vegetable seeds</button><button class="category" data-filter="care">Crop care</button><button class="category" data-filter="tools">Tools</button></div></div>
-      <div class="request-bar"><div class="request-summary"><span id="requestSelectionCount">0 selected</span><span class="request-total" id="requestTotal">Total: MWK 0</span></div><button class="primary request-button" id="requestSelectedButton" type="button" disabled>Request via WhatsApp</button></div>
+      <div class="request-bar"><div class="request-summary"><span id="requestSelectionCount">0 selected</span><span class="request-total" id="requestTotal">Total: MWK 0</span></div><button class="primary request-button" id="requestSelectedButton" type="button" disabled>Request via WhatsApp</button><ul class="selected-items" id="selectedItems" aria-label="Selected products"></ul></div>
       <div class="selection-guide" aria-label="Product selection instructions"><strong>How to select products</strong><ol><li>Tap a product image to select it.</li><li>Use the arrows in the quantity box, or type a number with your keyboard, to choose how many you want.</li><li>Send your request on WhatsApp. A congratulations message will pop up after it is sent.</li></ol></div>
       <div class="products">
         <article class="product" data-category="seeds"><img class="product-image" src="https://seedcogroup.com/zm/fieldcrops/wp-content/uploads/2021/09/719.jpg" alt="SEEDCO SEEDS" /><div class="product-body"><span class="product-tag">Seeds · 2kg pack</span><h3>SEEDCO SEEDS</h3><div class="product-bottom"><span class="price">MWK 580</span><div class="product-actions"><input class="product-select" type="checkbox" aria-label="Select SEEDCO SEEDS" data-name="SEEDCO SEEDS" data-tag="Seeds · 2kg pack" data-price="MWK 580" /><button class="add" aria-label="Add SEEDCO SEEDS to basket"><i data-lucide="plus"></i></button></div></div></div></article>
@@ -236,6 +239,7 @@
     const requestButton = document.getElementById('requestSelectedButton');
     const requestSelectionCount = document.getElementById('requestSelectionCount');
     const requestTotal = document.getElementById('requestTotal');
+    const selectedItems = document.getElementById('selectedItems');
     const productSelections = document.querySelectorAll('.product-select');
 
     productSelections.forEach(input => {
@@ -257,6 +261,11 @@
       const total = selected.reduce((sum, input) => sum + Number(input.value) * Number(input.dataset.price.replace(/[^0-9]/g, '')), 0);
       requestSelectionCount.textContent = selectedUnits === 1 ? '1 item selected' : selectedUnits + ' items selected';
       requestTotal.textContent = 'Total: MWK ' + total.toLocaleString();
+      selectedItems.replaceChildren(...selected.map(input => {
+        const item = document.createElement('li');
+        item.textContent = input.dataset.name + ' x ' + input.value;
+        return item;
+      }));
       requestButton.disabled = selected.length === 0;
     };
 
